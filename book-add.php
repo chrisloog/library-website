@@ -1,3 +1,8 @@
+<?php
+require_once 'functions.php';
+$authors = getData('authors.txt');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,10 +25,20 @@
             </div>
 
             <?php
-            if (isset($_GET['msg']) && $_GET['msg'] === 'error') {
+            if (isset($_GET['msg']) && $_GET['msg'] === 'titleError') {
                 ?>
                 <div class="header-footer" id="error-message">
                     Title should be between 3 and 23 characters!
+                </div>
+            <?php
+            }
+            ?>
+
+            <?php
+            if (isset($_GET['msg']) && $_GET['msg'] === 'authorError') {
+                ?>
+                <div class="header-footer" id="error-message">
+                    Please add an author to your book.
                 </div>
             <?php
             }
@@ -46,9 +61,25 @@
                     </div>
                     <div class="input-cell">
                         <select name="bookAuthor" id="bookAuthor">
-                            <option></option>
-                            <option>Stephen King</option>
-                            <option>Andrus Kivirähk</option>
+
+                            <?php
+                            if (isset($_GET['msg'])) {
+                                ?>
+                                <option><?php echo urldecode($_GET['author']) ?></option>
+                                <?php
+                            } else {
+                                ?>
+                                <option></option>
+                                <?php
+                            }
+                            if (!empty($authors)) {
+                                foreach ($authors as $author) {
+                                    ?>
+                                    <option><?php echo $author[0] . ' ' . $author[1] ?></option>
+                                    <?php
+                                }
+                            }
+                            ?>
                         </select>
                     </div>
 
@@ -65,7 +96,7 @@
                   
                     <div class="input-cell button-cell">
                         <?php
-                        if (isset($_GET['edit']) && $_GET['edit'] = 1) {
+                        if (isset($_GET['msg']) && $_GET['msg'] = 'edit') {
                         ?>
                             <input name="submitButton" type="submit" class="danger" formaction="functions.php?cmd=book-delete" value="Kustuta"/>
                             <input name="submitButton" type="submit" formaction="functions.php?cmd=book-edit" value="Salvesta"/>

@@ -1,5 +1,8 @@
 <?php
 
+require_once 'Author.php';
+require_once 'Book.php';
+
 if (isset($_GET['cmd'])) {
     if ($_GET['cmd'] === 'author-save') {
         if (validateAuthor() === true) {
@@ -9,11 +12,13 @@ if (isset($_GET['cmd'])) {
             header('Location: author-add.php?msg=error' . createAuthorURL());
         }
     } else if ($_GET['cmd'] === 'book-save') {
-        if (validateBook() === true) {
+        if (validateBookTitle() === true && validateBookAuthor() === true) {
             saveBookToFile();
             header('Location: index.php?msg=success');
+        } else if (validateBookTitle() === false) {
+            header('Location: book-add.php?msg=titleError' . createBookURL());
         } else {
-            header('Location: book-add.php?msg=error' . createBookURL());
+            header('Location: book-add.php?msg=authorError' . createBookURL());
         }
     } else if ($_GET['cmd'] === 'book-delete') {
         deleteBook();
@@ -22,11 +27,13 @@ if (isset($_GET['cmd'])) {
         deleteAuthor();
         header('Location: author-list.php?msg=success');
     } else if ($_GET['cmd'] === 'book-edit') {
-        if (validateBook() === true) {
+        if (validateBookTitle() === true && validateBookAuthor() === true) {
             editBook();
             header('Location: index.php?msg=success');
+        } else if (validateBookTitle() === false) {
+            header('Location: book-add.php?msg=titleError' . createBookURL());
         } else {
-            header('Location: book-add.php?msg=error' . createBookURL());
+            header('Location: book-add.php?msg=authorError' . createBookURL());
         }
     } else if ($_GET['cmd'] === 'author-edit') {
         if (validateAuthor() === true) {
@@ -44,8 +51,7 @@ function saveAuthorToFile(): void
     $lastName = $_POST['lastName'];
     $rating = $_POST['grade'] ?? 0;
     $filename = 'authors.txt';
-    $content = $firstName . ',' . $lastName . ',' . $rating . PHP_EOL;
-    file_put_contents($filename, $content, FILE_APPEND);
+    file_put_contents($filename, new Author($firstName, $lastName, $rating) . PHP_EOL, FILE_APPEND);
 }
 
 function saveBookToFile(): void
@@ -108,13 +114,21 @@ function validateAuthor(): bool
     return true;
 }
 
-function validateBook(): bool
+function validateBookTitle(): bool
 {
     $titleLength = strlen($_POST['title']);
     if ($titleLength < 3 || $titleLength > 23) {
         return false;
     }
     return true;    
+}
+
+function validateBookAuthor(): bool
+{
+    if (empty($_POST['bookAuthor'])) {
+        return false;
+    }
+    return true;
 }
 
 function getData($file): array 
@@ -149,10 +163,10 @@ function createBookURL() : string
 
 function editAuthor() : void
 {
-
+    // need to implement this method
 }
 
 function editBook() : void
 {
-    
+    // need to implement this method
 }

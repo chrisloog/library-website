@@ -59,7 +59,18 @@
           <div class="flex-break"></div>
           <div class="label-cell"></div>
           <div class="input-cell button-cell">
-            <input name="submitButton" type="submit" formaction="functions.php?cmd=author-save" value="Salvesta" />
+            <?php
+              if (isset($_GET['msg']) && $_GET['msg'] = 'edit') {
+            ?>
+                <input name="submitButton" type="submit" class="danger" formaction="functions.php?cmd=author-delete" value="Kustuta"/>
+                <input name="submitButton" type="submit" formaction="functions.php?cmd=author-edit" value="Salvesta"/>
+            <?php
+              } else {
+            ?>  
+                <input name="submitButton" type="submit" formaction="functions.php?cmd=author-save" value="Salvesta"/>
+            <?php
+              }
+            ?>
         </form>
   </div>
   </section>

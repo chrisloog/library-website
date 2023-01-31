@@ -46,10 +46,11 @@ $books = getData('books.txt');
 
                 <?php
                 foreach ($books as $book) {
-                    $bookLink = 'book-add.php?edit=1&title=' . urlencode($book[0]) . '&author=' . urlencode($book[1]) . '&rating=' . urlencode($book[2]);
+                    $bookLink = 'book-add.php?msg=edit&title=' . urlencode($book[0]) . '&author=' . urlencode($book[1]) . '&rating=' . urlencode($book[2]);
                 ?>
                     <div class="row">
-                        <div class="column left"><a href=<?php echo $bookLink ?> id="book-link"><?php echo $book[0] ?></a>
+                        <div class="column left">
+                            <a href=<?php echo $bookLink ?> id="book-link"><?php echo $book[0] ?></a>
                         </div>
                         <div class="column middle">
                             <?php echo $book[1] ?>

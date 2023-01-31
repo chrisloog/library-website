@@ -81,11 +81,12 @@ a {
 }
 
 #input-form .input-cell {
+    width: 15rem;
     line-height: 1.9rem;
 }
 
 #input-form .button-cell {
-    width: 19rem; /** same as input */
+    width: 19rem;
     text-align: right;
     padding-top: 2rem;
 }

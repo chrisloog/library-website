@@ -45,11 +45,12 @@ $authors = getData('authors.txt');
                 <hr>
                 <?php
                 foreach ($authors as $author) {
-                    ?>
+                    $authorLink = 'author-add.php?msg=edit&firstName=' . urlencode($author[0]) . '&lastName=' . urlencode($author[1]) . '&rating=' . urlencode($author[2]);
+                ?>
 
                     <div class="row">
                         <div class="column left">
-                            <?php echo $author[0] ?>
+                            <a href=<?php echo $authorLink ?> id="book-link"><?php echo $author[0] ?></a>
                         </div>
                         <div class="column middle">
                             <?php echo $author[1] ?>

@@ -1,0 +1,3 @@
+jjj,,3
+aaa,Stephen King,4
+jjj,Martin Sepp,0
