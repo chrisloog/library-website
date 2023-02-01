@@ -163,10 +163,10 @@ function createBookURL() : string
 
 function editAuthor() : void
 {
-    // need to implement this method
+    
 }
 
 function editBook() : void
 {
-    // need to implement this method
+    
 }
