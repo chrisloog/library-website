@@ -168,5 +168,5 @@ function editAuthor() : void
 
 function editBook() : void
 {
-    // implement
+    
 }
