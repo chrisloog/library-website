@@ -26,7 +26,7 @@ $authors = getData('authors.txt');
 
             <?php
             if (isset($_GET['msg']) && $_GET['msg'] === 'titleError') {
-                ?>
+            ?>
                 <div class="header-footer" id="error-message">
                     Title should be between 3 and 23 characters!
                 </div>
@@ -36,7 +36,7 @@ $authors = getData('authors.txt');
 
             <?php
             if (isset($_GET['msg']) && $_GET['msg'] === 'authorError') {
-                ?>
+            ?>
                 <div class="header-footer" id="error-message">
                     Please add an author to your book.
                 </div>
@@ -48,15 +48,20 @@ $authors = getData('authors.txt');
         <main>
             <section>
                 <form id="input-form" method="post">
-                    <input id="currentTitle" name="currentTitle" type="hidden" value="<?php echo $_GET['title'] ?>"/>
-                    <input id="currentAuthor" name="currentAuthor" type="hidden" value="<?php echo $_GET['author'] ?>"/>
-                    <input id="currentRating" name="currentRating" type="hidden" value="<?php echo $_GET['rating'] ?>"/>
+                    <?php
+                    if (isset($_GET['msg']) && $_GET['msg'] == 'edit') {
+                    ?>
+                        <input id="currentTitle" name="currentTitle" type="hidden" value="<?php echo $_GET['title'] ?>" />
+                        <input id="currentAuthor" name="currentAuthor" type="hidden" value="<?php echo $_GET['author'] ?>" />
+                        <input id="currentRating" name="currentRating" type="hidden" value="<?php echo $_GET['rating'] ?>" />
+                    <?php
+                    }
+                    ?>
                     <div class="label-cell">
                         <label for="title">Pealkiri:</label>
                     </div>
                     <div class="input-cell">
-                        <input id="title" name="title"
-                            value="<?php echo isset($_GET['title']) ? urldecode($_GET['title']) : ''; ?>" type="text" />
+                        <input id="title" name="title" value="<?php echo isset($_GET['title']) ? urldecode($_GET['title']) : ''; ?>" type="text" />
                     </div>
 
                     <div class="label-cell">
@@ -67,19 +72,19 @@ $authors = getData('authors.txt');
 
                             <?php
                             if (isset($_GET['msg'])) {
-                                ?>
+                            ?>
                                 <option><?php echo urldecode($_GET['author']) ?></option>
-                                <?php
+                            <?php
                             } else {
-                                ?>
+                            ?>
                                 <option></option>
                                 <?php
                             }
                             if (!empty($authors)) {
                                 foreach ($authors as $author) {
-                                    ?>
+                                ?>
                                     <option><?php echo $author[0] . ' ' . $author[1] ?></option>
-                                    <?php
+                            <?php
                                 }
                             }
                             ?>
@@ -96,17 +101,17 @@ $authors = getData('authors.txt');
                     </div>
                     <div class="flex-break"></div>
                     <div class="label-cell"></div>
-                  
+
                     <div class="input-cell button-cell">
                         <?php
                         if (isset($_GET['msg']) && $_GET['msg'] = 'edit') {
                         ?>
-                            <input name="submitButton" type="submit" class="danger" formaction="functions.php?cmd=book-delete" value="Kustuta"/>
-                            <input name="submitButton" type="submit" formaction="functions.php?cmd=book-edit" value="Salvesta"/>
+                            <input name="submitButton" type="submit" class="danger" formaction="functions.php?cmd=book-delete" value="Kustuta" />
+                            <input name="submitButton" type="submit" formaction="functions.php?cmd=book-edit" value="Salvesta" />
                         <?php
                         } else {
-                        ?>  
-                            <input name="submitButton" type="submit" formaction="functions.php?cmd=book-save" value="Salvesta"/>
+                        ?>
+                            <input name="submitButton" type="submit" formaction="functions.php?cmd=book-save" value="Salvesta" />
                         <?php
                         }
                         ?>

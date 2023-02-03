@@ -94,7 +94,7 @@ function deleteAuthor(): void
 
     $result = "";
 
-    foreach($rows as $line){
+    foreach ($rows as $line) {
         if (!empty($line)) {
             if (strpos($line, $_POST['firstName']) === false && strpos($line, $_POST['lastName']) === false) {
                 $result .= $line . PHP_EOL;
@@ -120,7 +120,7 @@ function validateBookTitle(): bool
     if ($titleLength < 3 || $titleLength > 23) {
         return false;
     }
-    return true;    
+    return true;
 }
 
 function validateBookAuthor(): bool
@@ -131,7 +131,7 @@ function validateBookAuthor(): bool
     return true;
 }
 
-function getData($file): array 
+function getData($file): array
 {
     $rows = array();
     if (($handle = fopen($file, "r")) !== FALSE) {
@@ -143,7 +143,7 @@ function getData($file): array
     return $rows;
 }
 
-function createAuthorURL() : string
+function createAuthorURL(): string
 {
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
@@ -152,7 +152,7 @@ function createAuthorURL() : string
     return $result;
 }
 
-function createBookURL() : string
+function createBookURL(): string
 {
     $title = $_POST['title'];
     $author = $_POST['bookAuthor'];
@@ -161,12 +161,32 @@ function createBookURL() : string
     return $result;
 }
 
-function editAuthor() : void
+function editAuthor(): void
 {
-    
+    $contents = file_get_contents('authors.txt');
+    $rows = explode(PHP_EOL, $contents);
+    $result = "";
+
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $rating = $_POST['grade'] ?? 0;
+
+    $needle = $_POST['currentFirstName'] . ',' . $_POST['currentLastName'] . ',' . $_POST['currentRating'];
+
+    foreach ($rows as $line) {
+
+        if (!empty($line)) {
+            if ($line != $needle) {
+                $result .= $line . PHP_EOL;
+            } else {
+                $result .= $firstName . ',' . $lastName . ',' . $rating . PHP_EOL;
+            }
+        }
+    }
+    file_put_contents('authors.txt', $result);
 }
 
-function editBook() : void
+function editBook(): void
 {
     $contents = file_get_contents('books.txt');
     $rows = explode(PHP_EOL, $contents);

@@ -20,7 +20,7 @@
 
     <?php
     if (isset($_GET['msg']) && $_GET['msg'] === 'error') {
-      ?>
+    ?>
       <div class="header-footer" id="error-message">
         Title should be between 3 and 23 characters!
       </div>
@@ -31,20 +31,27 @@
     <main>
       <section>
         <form id="input-form" method="post">
+          <?php
+          if (isset($_GET['msg']) && $_GET['msg'] == 'edit') {
+          ?>
+            <input id="currentFirstName" name="currentFirstName" type="hidden" value="<?php echo $_GET['firstName'] ?>" />
+            <input id="currentLastName" name="currentLastName" type="hidden" value="<?php echo $_GET['lastName'] ?>" />
+            <input id="currentRating" name="currentRating" type="hidden" value="<?php echo $_GET['rating'] ?>" />
+          <?php
+          }
+          ?>
           <div class="label-cell">
             <label for="name">First name:</label>
           </div>
           <div class="input-cell">
-            <input id="name" name="firstName" value="<?php echo isset($_GET['firstName']) ? $_GET['firstName'] : ''; ?>"
-              type="text" />
+            <input id="name" name="firstName" value="<?php echo isset($_GET['firstName']) ? $_GET['firstName'] : ''; ?>" type="text" />
           </div>
 
           <div class="label-cell">
             <label for="last-name">Last name:</label>
           </div>
           <div class="input-cell">
-            <input id="last-name" name="lastName"
-              value="<?php echo isset($_GET['lastName']) ? $_GET['lastName'] : ''; ?>" type="text" />
+            <input id="last-name" name="lastName" value="<?php echo isset($_GET['lastName']) ? $_GET['lastName'] : ''; ?>" type="text" />
           </div>
 
           <div class="label-cell">Rating:</div>
@@ -60,16 +67,16 @@
           <div class="label-cell"></div>
           <div class="input-cell button-cell">
             <?php
-              if (isset($_GET['msg']) && $_GET['msg'] = 'edit') {
+            if (isset($_GET['msg']) && $_GET['msg'] = 'edit') {
             ?>
-                <input name="submitButton" type="submit" class="danger" formaction="functions.php?cmd=author-delete" value="Kustuta"/>
-                <input name="submitButton" type="submit" formaction="functions.php?cmd=author-edit" value="Salvesta"/>
+              <input name="submitButton" type="submit" class="danger" formaction="functions.php?cmd=author-delete" value="Kustuta" />
+              <input name="submitButton" type="submit" formaction="functions.php?cmd=author-edit" value="Salvesta" />
             <?php
-              } else {
-            ?>  
-                <input name="submitButton" type="submit" formaction="functions.php?cmd=author-save" value="Salvesta"/>
+            } else {
+            ?>
+              <input name="submitButton" type="submit" formaction="functions.php?cmd=author-save" value="Salvesta" />
             <?php
-              }
+            }
             ?>
         </form>
   </div>

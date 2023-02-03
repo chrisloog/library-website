@@ -26,7 +26,7 @@ $books = getData('books.txt');
 
             <?php
             if (isset($_GET['msg']) && $_GET['msg'] === 'success') {
-                ?>
+            ?>
                 <div class="header-footer" id="success-message">
                     Success!
                 </div>
