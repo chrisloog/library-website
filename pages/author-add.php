@@ -6,13 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Author form</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../styles.css" />
 </head>
 
 <body>
   <div id="container">
     <div class="header-footer">
-      <a href="index.php">Books</a>&nbsp;|&nbsp;
+      <a href="../index.php">Books</a>&nbsp;|&nbsp;
       <a href="book-add.php">Add books</a>&nbsp;|&nbsp;
       <a href="author-list.php">Authors</a>&nbsp;|&nbsp;
       <a href="">Add authors</a>
@@ -69,12 +69,12 @@
             <?php
             if (isset($_GET['msg']) && $_GET['msg'] = 'edit') {
             ?>
-              <input name="submitButton" type="submit" class="danger" formaction="functions.php?cmd=author-delete" value="Kustuta" />
-              <input name="submitButton" type="submit" formaction="functions.php?cmd=author-edit" value="Salvesta" />
+              <input name="submitButton" type="submit" class="danger" formaction="../functions.php?cmd=author-delete" value="Kustuta" />
+              <input name="submitButton" type="submit" formaction="../functions.php?cmd=author-edit" value="Salvesta" />
             <?php
             } else {
             ?>
-              <input name="submitButton" type="submit" formaction="functions.php?cmd=author-save" value="Salvesta" />
+              <input name="submitButton" type="submit" formaction="../functions.php?cmd=author-save" value="Salvesta" />
             <?php
             }
             ?>

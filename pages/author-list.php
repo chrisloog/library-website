@@ -1,6 +1,6 @@
 <?php
-require_once 'functions.php';
-$authors = getData('authors.txt');
+require_once '../functions.php';
+$authors = getData('../authors.txt');
 ?>
 
 <!DOCTYPE html>
@@ -11,14 +11,14 @@ $authors = getData('authors.txt');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Authors list</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 
 <body>
     <div id="container">
         <header>
             <div class="header-footer">
-                <a href="index.php">Books</a>&nbsp;|&nbsp;
+                <a href="../index.php">Books</a>&nbsp;|&nbsp;
                 <a href="book-add.php">Add books</a>&nbsp;|&nbsp;
                 <a href="">Authors</a>&nbsp;|&nbsp;
                 <a href="author-add.php">Add authors</a>

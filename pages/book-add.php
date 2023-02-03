@@ -1,6 +1,6 @@
 <?php
-require_once 'functions.php';
-$authors = getData('authors.txt');
+require_once '../functions.php';
+$authors = getData('../authors.txt');
 ?>
 
 <!DOCTYPE html>
@@ -11,14 +11,14 @@ $authors = getData('authors.txt');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book form</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 
 <body>
     <div id="container">
         <header>
             <div class="header-footer">
-                <a href="index.php">Books</a>&nbsp;|&nbsp;
+                <a href="../index.php">Books</a>&nbsp;|&nbsp;
                 <a href="">Add books</a>&nbsp;|&nbsp;
                 <a href="author-list.php">Authors</a>&nbsp;|&nbsp;
                 <a href="author-add.php">Add authors</a>
@@ -106,12 +106,12 @@ $authors = getData('authors.txt');
                         <?php
                         if (isset($_GET['msg']) && $_GET['msg'] = 'edit') {
                         ?>
-                            <input name="submitButton" type="submit" class="danger" formaction="functions.php?cmd=book-delete" value="Kustuta" />
-                            <input name="submitButton" type="submit" formaction="functions.php?cmd=book-edit" value="Salvesta" />
+                            <input name="submitButton" type="submit" class="danger" formaction="../functions.php?cmd=book-delete" value="Kustuta" />
+                            <input name="submitButton" type="submit" formaction="../functions.php?cmd=book-edit" value="Salvesta" />
                         <?php
                         } else {
                         ?>
-                            <input name="submitButton" type="submit" formaction="functions.php?cmd=book-save" value="Salvesta" />
+                            <input name="submitButton" type="submit" formaction="../functions.php?cmd=book-save" value="Salvesta" />
                         <?php
                         }
                         ?>

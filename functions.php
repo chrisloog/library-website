@@ -1,46 +1,46 @@
 <?php
 
-require_once 'Author.php';
-require_once 'Book.php';
+require_once 'objects/Author.php';
+require_once 'objects/Book.php';
 
 if (isset($_GET['cmd'])) {
     if ($_GET['cmd'] === 'author-save') {
         if (validateAuthor() === true) {
             saveAuthorToFile();
-            header('Location: author-list.php?msg=success');
+            header('Location: pages/author-list.php?msg=success');
         } else {
-            header('Location: author-add.php?msg=error' . createAuthorURL());
+            header('Location: pages/author-add.php?msg=error' . createAuthorURL());
         }
     } else if ($_GET['cmd'] === 'book-save') {
         if (validateBookTitle() === true && validateBookAuthor() === true) {
             saveBookToFile();
             header('Location: index.php?msg=success');
         } else if (validateBookTitle() === false) {
-            header('Location: book-add.php?msg=titleError' . createBookURL());
+            header('Location: pages/book-add.php?msg=titleError' . createBookURL());
         } else {
-            header('Location: book-add.php?msg=authorError' . createBookURL());
+            header('Location: pages/book-add.php?msg=authorError' . createBookURL());
         }
     } else if ($_GET['cmd'] === 'book-delete') {
         deleteBook();
         header('Location: index.php?msg=success');
     } else if ($_GET['cmd'] === 'author-delete') {
         deleteAuthor();
-        header('Location: author-list.php?msg=success');
+        header('Location: pages/author-list.php?msg=success');
     } else if ($_GET['cmd'] === 'book-edit') {
         if (validateBookTitle() === true && validateBookAuthor() === true) {
             editBook();
             header('Location: index.php?msg=success');
         } else if (validateBookTitle() === false) {
-            header('Location: book-add.php?msg=titleError' . createBookURL());
+            header('Location: pages/book-add.php?msg=titleError' . createBookURL());
         } else {
-            header('Location: book-add.php?msg=authorError' . createBookURL());
+            header('Location: pages/book-add.php?msg=authorError' . createBookURL());
         }
     } else if ($_GET['cmd'] === 'author-edit') {
         if (validateAuthor() === true) {
             editAuthor();
-            header('Location: author-list.php?msg=success');
+            header('Location: pages/author-list.php?msg=success');
         } else {
-            header('Location: author-add.php?msg=error' . createAuthorURL());
+            header('Location: pages/author-add.php?msg=error' . createAuthorURL());
         }
     }
 }

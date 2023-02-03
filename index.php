@@ -19,9 +19,9 @@ $books = getData('books.txt');
         <header>
             <div class="header-footer">
                 <a href="">Books</a>&nbsp;|&nbsp;
-                <a href="book-add.php">Add books</a>&nbsp;|&nbsp;
-                <a href="author-list.php">Authors</a>&nbsp;|&nbsp;
-                <a href="author-add.php">Add authors</a>
+                <a href="pages/book-add.php">Add books</a>&nbsp;|&nbsp;
+                <a href="pages/author-list.php">Authors</a>&nbsp;|&nbsp;
+                <a href="pages/author-add.php">Add authors</a>
             </div>
 
             <?php
@@ -46,7 +46,7 @@ $books = getData('books.txt');
 
                 <?php
                 foreach ($books as $book) {
-                    $bookLink = 'book-add.php?msg=edit&title=' . urlencode($book[0]) . '&author=' . urlencode($book[1]) . '&rating=' . urlencode($book[2]);
+                    $bookLink = 'pages/book-add.php?msg=edit&title=' . urlencode($book[0]) . '&author=' . urlencode($book[1]) . '&rating=' . urlencode($book[2]);
                 ?>
                     <div class="row">
                         <div class="column left">
