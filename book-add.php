@@ -48,6 +48,9 @@ $authors = getData('authors.txt');
         <main>
             <section>
                 <form id="input-form" method="post">
+                    <input id="currentTitle" name="currentTitle" type="hidden" value="<?php echo $_GET['title'] ?>"/>
+                    <input id="currentAuthor" name="currentAuthor" type="hidden" value="<?php echo $_GET['author'] ?>"/>
+                    <input id="currentRating" name="currentRating" type="hidden" value="<?php echo $_GET['rating'] ?>"/>
                     <div class="label-cell">
                         <label for="title">Pealkiri:</label>
                     </div>

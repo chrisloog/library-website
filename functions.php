@@ -168,5 +168,25 @@ function editAuthor() : void
 
 function editBook() : void
 {
-    
+    $contents = file_get_contents('books.txt');
+    $rows = explode(PHP_EOL, $contents);
+    $result = "";
+
+    $title = $_POST['title'];
+    $author = $_POST['bookAuthor'];
+    $rating = $_POST['grade'] ?? 0;
+
+    $needle = $_POST['currentTitle'] . ',' . $_POST['currentAuthor'] . ',' . $_POST['currentRating'];
+
+    foreach ($rows as $line) {
+
+        if (!empty($line)) {
+            if ($line != $needle) {
+                $result .= $line . PHP_EOL;
+            } else {
+                $result .= $title . ',' . $author . ',' . $rating . PHP_EOL;
+            }
+        }
+    }
+    file_put_contents('books.txt', $result);
 }
