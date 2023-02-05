@@ -1,7 +1,5 @@
-<?php
-require_once '../functions.php';
-$authors = getData('../authors.txt');
-?>
+<?php require_once '../functions.php';
+$authors = getData('../authors.txt'); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,17 +22,11 @@ $authors = getData('../authors.txt');
                 <a href="author-add.php">Add authors</a>
             </div>
 
-            <?php
-            if (isset($_GET['msg']) && $_GET['msg'] === 'success') {
-            ?>
-                <div class="header-footer" id="success-message">
-                    Success!
-                </div>
-            <?php
-            }
-            ?>
-
+            <?php if (isset($_GET['msg']) && $_GET['msg'] === 'success') : ?>
+                <div class="header-footer" id="success-message">Success!</div>
+            <?php endif; ?>
         </header>
+
         <main>
             <section>
                 <div class="row labels">
@@ -43,25 +35,16 @@ $authors = getData('../authors.txt');
                     <div class="column right">Rating</div>
                 </div>
                 <hr>
-                <?php
-                foreach ($authors as $author) {
+                <?php foreach ($authors as $author) :
                     $authorLink = 'author-add.php?msg=edit&firstName=' . urlencode($author[0]) . '&lastName=' . urlencode($author[1]) . '&rating=' . urlencode($author[2]);
-                ?>
-
-                    <div class="row">
-                        <div class="column left">
-                            <a href=<?php echo $authorLink ?> id="book-link"><?php echo $author[0] ?></a>
-                        </div>
-                        <div class="column middle">
-                            <?php echo $author[1] ?>
-                        </div>
-                        <div class="column right">
-                            <?php echo $author[2] ?>
-                        </div>
-                    </div>
-                <?php
-                }
-                ?>
+                    <<<ITEM
+                            <div class="row">
+                                <div class="column left"><a href=$authorLink id="book-link">$author[0]</a></div>
+                                <div class="column middle">$author[1]</div>
+                                <div class="column right">$author[2]</div>
+                            </div>
+                        ITEM;
+                endforeach; ?>
             </section>
         </main>
         <footer>

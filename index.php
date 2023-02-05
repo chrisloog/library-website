@@ -1,7 +1,5 @@
-<?php
-require_once 'functions.php';
-$books = getData('books.txt');
-?>
+<?php require_once 'functions.php';
+$books = getData('books.txt'); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,15 +22,9 @@ $books = getData('books.txt');
                 <a href="pages/author-add.php">Add authors</a>
             </div>
 
-            <?php
-            if (isset($_GET['msg']) && $_GET['msg'] === 'success') {
-            ?>
-                <div class="header-footer" id="success-message">
-                    Success!
-                </div>
-            <?php
-            }
-            ?>
+            <?php if (isset($_GET['msg']) && $_GET['msg'] === 'success') : ?>
+                <div class="header-footer" id="success-message">Success!</div>
+            <?php endif; ?>
 
         </header>
         <main>
@@ -44,24 +36,16 @@ $books = getData('books.txt');
                 </div>
                 <hr>
 
-                <?php
-                foreach ($books as $book) {
+                <?php foreach ($books as $book) :
                     $bookLink = 'pages/book-add.php?msg=edit&title=' . urlencode($book[0]) . '&author=' . urlencode($book[1]) . '&rating=' . urlencode($book[2]);
-                ?>
-                    <div class="row">
-                        <div class="column left">
-                            <a href=<?php echo $bookLink ?> id="book-link"><?php echo $book[0] ?></a>
-                        </div>
-                        <div class="column middle">
-                            <?php echo $book[1] ?>
-                        </div>
-                        <div class="column right">
-                            <?php echo $book[2] ?>
-                        </div>
-                    </div>
-                <?php
-                }
-                ?>
+                    <<<ITEM
+                                <div class="row">
+                                    <div class="column left"><a href=$bookLink id="book-link">$book[0]</a></div>
+                                    <div class="column middle">$book[1]</div>
+                                    <div class="column right">$book[2] ?></div>
+                                </div>
+                            ITEM;
+                endforeach; ?>
 
             </section>
         </main>

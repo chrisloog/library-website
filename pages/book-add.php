@@ -1,7 +1,5 @@
-<?php
-require_once '../functions.php';
-$authors = getData('../authors.txt');
-?>
+<?php require_once '../functions.php';
+$authors = getData('../authors.txt'); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,44 +22,21 @@ $authors = getData('../authors.txt');
                 <a href="author-add.php">Add authors</a>
             </div>
 
-            <?php
-            if (isset($_GET['msg']) && $_GET['msg'] === 'titleError') {
-            ?>
-                <div class="header-footer" id="error-message">
-                    Title should be between 3 and 23 characters!
-                </div>
-            <?php
-            }
-            ?>
-
-            <?php
-            if (isset($_GET['msg']) && $_GET['msg'] === 'authorError') {
-            ?>
-                <div class="header-footer" id="error-message">
-                    Please add an author to your book.
-                </div>
-            <?php
-            }
-            ?>
-
+            <?php if (isset($_GET['msg']) && $_GET['msg'] === 'titleError') : ?>
+                <div class="header-footer" id="error-message">Title should be between 3 and 23 characters!</div>
+            <?php elseif (isset($_GET['msg']) && $_GET['msg'] === 'authorError') : ?>
+                <div class="header-footer" id="error-message">Please add an author to your book.</div>
+            <?php endif; ?>
         </header>
+
         <main>
             <section>
                 <form id="input-form" method="post">
-                    <?php
-                    if (isset($_GET['msg']) && $_GET['msg'] == 'edit') {
-                    ?>
-                        <input id="currentTitle" name="currentTitle" type="hidden" value="<?php echo $_GET['title'] ?>" />
-                        <input id="currentAuthor" name="currentAuthor" type="hidden" value="<?php echo $_GET['author'] ?>" />
-                        <input id="currentRating" name="currentRating" type="hidden" value="<?php echo $_GET['rating'] ?>" />
-                    <?php
-                    }
-                    ?>
                     <div class="label-cell">
                         <label for="title">Pealkiri:</label>
                     </div>
                     <div class="input-cell">
-                        <input id="title" name="title" value="<?php echo isset($_GET['title']) ? urldecode($_GET['title']) : ''; ?>" type="text" />
+                        <input id="title" name="title" value="<?= isset($_GET['title']) ? urldecode($_GET['title']) : ''; ?>" type="text" />
                     </div>
 
                     <div class="label-cell">
@@ -69,52 +44,42 @@ $authors = getData('../authors.txt');
                     </div>
                     <div class="input-cell">
                         <select name="bookAuthor" id="bookAuthor">
-
-                            <?php
-                            if (isset($_GET['msg'])) {
-                            ?>
-                                <option><?php echo urldecode($_GET['author']) ?></option>
-                            <?php
-                            } else {
-                            ?>
+                            <?php if (isset($_GET['msg'])) : ?>
+                                <option><?= urldecode($_GET['author']) ?></option>
+                            <?php else : ?>
                                 <option></option>
-                                <?php
-                            }
-                            if (!empty($authors)) {
-                                foreach ($authors as $author) {
-                                ?>
-                                    <option><?php echo $author[0] . ' ' . $author[1] ?></option>
-                            <?php
-                                }
-                            }
-                            ?>
+                            <?php endif;
+                            if (!empty($authors)) :
+                                foreach ($list as $item) : echo
+                                    <<<ITEM
+                                            <option>$item[0] $item[1]</option>
+                                        ITEM;
+                                endforeach;
+                            endif; ?>
                         </select>
                     </div>
 
                     <div class="label-cell">Hinne:</div>
                     <div class="input-cell">
-                        <label> <input type="radio" name="grade" value="1" <?php echo (isset($_GET['rating']) && $_GET['rating'] == 1) ? 'checked' : ''; ?> />1 </label>
-                        <label> <input type="radio" name="grade" value="2" <?php echo (isset($_GET['rating']) && $_GET['rating'] == 2) ? 'checked' : ''; ?> />2 </label>
-                        <label> <input type="radio" name="grade" value="3" <?php echo (isset($_GET['rating']) && $_GET['rating'] == 3) ? 'checked' : ''; ?> />3 </label>
-                        <label> <input type="radio" name="grade" value="4" <?php echo (isset($_GET['rating']) && $_GET['rating'] == 4) ? 'checked' : ''; ?> />4 </label>
-                        <label> <input type="radio" name="grade" value="5" <?php echo (isset($_GET['rating']) && $_GET['rating'] == 5) ? 'checked' : ''; ?> />5 </label>
+                        <label> <input type="radio" name="grade" value="1" <?= (isset($_GET['rating']) && $_GET['rating'] == 1) ? 'checked' : ''; ?> />1 </label>
+                        <label> <input type="radio" name="grade" value="2" <?= (isset($_GET['rating']) && $_GET['rating'] == 2) ? 'checked' : ''; ?> />2 </label>
+                        <label> <input type="radio" name="grade" value="3" <?= (isset($_GET['rating']) && $_GET['rating'] == 3) ? 'checked' : ''; ?> />3 </label>
+                        <label> <input type="radio" name="grade" value="4" <?= (isset($_GET['rating']) && $_GET['rating'] == 4) ? 'checked' : ''; ?> />4 </label>
+                        <label> <input type="radio" name="grade" value="5" <?= (isset($_GET['rating']) && $_GET['rating'] == 5) ? 'checked' : ''; ?> />5 </label>
                     </div>
                     <div class="flex-break"></div>
                     <div class="label-cell"></div>
 
                     <div class="input-cell button-cell">
-                        <?php
-                        if (isset($_GET['msg']) && $_GET['msg'] = 'edit') {
-                        ?>
+                        <?php if (isset($_GET['msg']) && $_GET['msg'] = 'edit') : ?>
+                            <input id="currentTitle" name="currentTitle" type="hidden" value="<?php echo $_GET['title'] ?>" />
+                            <input id="currentAuthor" name="currentAuthor" type="hidden" value="<?php echo $_GET['author'] ?>" />
+                            <input id="currentRating" name="currentRating" type="hidden" value="<?php echo $_GET['rating'] ?>" />
                             <input name="submitButton" type="submit" class="danger" formaction="../functions.php?cmd=book-delete" value="Kustuta" />
                             <input name="submitButton" type="submit" formaction="../functions.php?cmd=book-edit" value="Salvesta" />
-                        <?php
-                        } else {
-                        ?>
+                        <?php else : ?>
                             <input name="submitButton" type="submit" formaction="../functions.php?cmd=book-save" value="Salvesta" />
-                        <?php
-                        }
-                        ?>
+                        <?php endif; ?>
                     </div>
                 </form>
             </section>
