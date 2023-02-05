@@ -19,7 +19,7 @@
     </div>
 
     <?php if (isset($_GET['msg']) && $_GET['msg'] === 'error') : ?>
-      <div class="header-footer" id="error-message">Title should be between 3 and 23 characters!</div>
+      <div class="header-footer" id="error-message">First name should be between 1 and 21 characters and last name between 2 and 22 characters.</div>
     <?php endif; ?>
 
     <main>
