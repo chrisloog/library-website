@@ -1,8 +1,5 @@
 <?php
 
-require_once 'objects/Author.php';
-require_once 'objects/Book.php';
-
 if (isset($_GET['cmd'])) {
     if ($_GET['cmd'] === 'author-save') {
         if (validateAuthor() === true) {
@@ -47,39 +44,21 @@ if (isset($_GET['cmd'])) {
 
 function saveAuthorToFile(): void
 {
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $rating = $_POST['grade'] ?? 0;
-    $filename = 'authors.txt';
-    file_put_contents($filename, new Author($firstName, $lastName, $rating) . PHP_EOL, FILE_APPEND);
+    file_put_contents('authors.txt', authorEntryToString() . PHP_EOL, FILE_APPEND);
 }
 
 function saveBookToFile(): void
 {
-    $title = $_POST['title'];
-    $author = $_POST['bookAuthor'];
-    $rating = $_POST['grade'] ?? 0;
-    $filename = 'books.txt';
-    $content = $title . ',' . $author . ',' . $rating . PHP_EOL;
-    file_put_contents($filename, $content, FILE_APPEND);
+    file_put_contents('books.txt', bookEntryToString() . PHP_EOL, FILE_APPEND);
 }
 
 function deleteBook(): void
 {
-    $contents = file_get_contents('books.txt');
-    $rows = explode(PHP_EOL, $contents);
+    $rows = getData('books.txt');
     $result = "";
-
-    $title = $_POST['title'];
-    $author = $_POST['bookAuthor'];
-    $rating = $_POST['grade'] ?? 0;
-
-    $needle = $title . ',' . $author . ',' . $rating;
-
     foreach ($rows as $line) {
-
         if (!empty($line)) {
-            if ($line != $needle) {
+            if ($line != bookEntryToString()) {
                 $result .= $line . PHP_EOL;
             }
         }
@@ -89,11 +68,8 @@ function deleteBook(): void
 
 function deleteAuthor(): void
 {
-    $contents = file_get_contents('authors.txt');
-    $rows = explode(PHP_EOL, $contents);
-
+    $rows = getData('authors.txt');
     $result = "";
-
     foreach ($rows as $line) {
         if (!empty($line)) {
             if (strpos($line, $_POST['firstName']) === false && strpos($line, $_POST['lastName']) === false) {
@@ -108,27 +84,18 @@ function validateAuthor(): bool
 {
     $firstnameLength = strlen($_POST['firstName']);
     $lastnameLength = strlen($_POST['lastName']);
-    if ($firstnameLength < 1 || $firstnameLength > 21 || $lastnameLength < 2 || $lastnameLength > 22) {
-        return false;
-    }
-    return true;
+    return ($firstnameLength < 1 || $firstnameLength > 21 || $lastnameLength < 2 || $lastnameLength > 22);
 }
 
 function validateBookTitle(): bool
 {
     $titleLength = strlen($_POST['title']);
-    if ($titleLength < 3 || $titleLength > 23) {
-        return false;
-    }
-    return true;
+    return ($titleLength < 3 || $titleLength > 23);
 }
 
 function validateBookAuthor(): bool
 {
-    if (empty($_POST['bookAuthor'])) {
-        return false;
-    }
-    return true;
+    return empty($_POST['bookAuthor']);
 }
 
 function getData($file): array
@@ -145,31 +112,18 @@ function getData($file): array
 
 function createAuthorURL(): string
 {
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $rating = $_POST['grade'] ?? 0;
-    $result = '&firstName=' . urlencode($firstName) . '&lastName=' . urlencode($lastName) . '&rating=' . urlencode($rating);
-    return $result;
+    return '&firstName=' . urlencode($_POST['firstName']) . '&lastName=' . urlencode($_POST['lastName']) . '&rating=' . urlencode($_POST['grade'] ?? 0);
 }
 
 function createBookURL(): string
 {
-    $title = $_POST['title'];
-    $author = $_POST['bookAuthor'];
-    $rating = $_POST['grade'] ?? 0;
-    $result = '&title=' . urlencode($title) . '&author=' . urlencode($author) . '&rating=' . urlencode($rating);
-    return $result;
+    return '&title=' . urlencode($_POST['title']) . '&author=' . urlencode($_POST['bookAuthor']) . '&rating=' . urlencode($_POST['grade'] ?? 0);
 }
 
 function editAuthor(): void
 {
-    $contents = file_get_contents('authors.txt');
-    $rows = explode(PHP_EOL, $contents);
+    $rows = getData('authors.txt');
     $result = "";
-
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $rating = $_POST['grade'] ?? 0;
 
     $needle = $_POST['currentFirstName'] . ',' . $_POST['currentLastName'] . ',' . $_POST['currentRating'];
 
@@ -179,7 +133,7 @@ function editAuthor(): void
             if ($line != $needle) {
                 $result .= $line . PHP_EOL;
             } else {
-                $result .= $firstName . ',' . $lastName . ',' . $rating . PHP_EOL;
+                $result .= authorEntryToString() . PHP_EOL;
             }
         }
     }
@@ -192,10 +146,6 @@ function editBook(): void
     $rows = explode(PHP_EOL, $contents);
     $result = "";
 
-    $title = $_POST['title'];
-    $author = $_POST['bookAuthor'];
-    $rating = $_POST['grade'] ?? 0;
-
     $needle = $_POST['currentTitle'] . ',' . $_POST['currentAuthor'] . ',' . $_POST['currentRating'];
 
     foreach ($rows as $line) {
@@ -204,9 +154,19 @@ function editBook(): void
             if ($line != $needle) {
                 $result .= $line . PHP_EOL;
             } else {
-                $result .= $title . ',' . $author . ',' . $rating . PHP_EOL;
+                $result .= bookEntryToString() . PHP_EOL;
             }
         }
     }
     file_put_contents('books.txt', $result);
+}
+
+function bookEntryToString(): string 
+{
+    return $_POST['title'] . ',' . $_POST['bookAuthor'] . ',' . $_POST['rating'] ?? 0;
+}
+
+function authorEntryToString(): string
+{
+    return $_POST['firstName'] . ',' . $_POST['lastName'] . ',' . $_POST['grade'] ?? 0;
 }
