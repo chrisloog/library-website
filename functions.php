@@ -54,7 +54,8 @@ function saveBookToFile(): void
 
 function deleteBook(): void
 {
-    $rows = getData('books.txt');
+    $contents = file_get_contents('books.txt');
+    $rows = explode(PHP_EOL, $contents);
     $result = "";
     foreach ($rows as $line) {
         if (!empty($line)) {
@@ -68,7 +69,8 @@ function deleteBook(): void
 
 function deleteAuthor(): void
 {
-    $rows = getData('authors.txt');
+    $contents = file_get_contents('authors.txt');
+    $rows = explode(PHP_EOL, $contents);
     $result = "";
     foreach ($rows as $line) {
         if (!empty($line)) {
@@ -84,18 +86,18 @@ function validateAuthor(): bool
 {
     $firstnameLength = strlen($_POST['firstName']);
     $lastnameLength = strlen($_POST['lastName']);
-    return ($firstnameLength < 1 || $firstnameLength > 21 || $lastnameLength < 2 || $lastnameLength > 22);
+    return !($firstnameLength < 1 || $firstnameLength > 21 || $lastnameLength < 2 || $lastnameLength > 22);
 }
 
 function validateBookTitle(): bool
 {
     $titleLength = strlen($_POST['title']);
-    return ($titleLength < 3 || $titleLength > 23);
+    return !($titleLength < 3 || $titleLength > 23);
 }
 
 function validateBookAuthor(): bool
 {
-    return empty($_POST['bookAuthor']);
+    return !empty($_POST['bookAuthor']);
 }
 
 function getData($file): array
@@ -122,13 +124,13 @@ function createBookURL(): string
 
 function editAuthor(): void
 {
-    $rows = getData('authors.txt');
+    $contents = file_get_contents('authors.txt');
+    $rows = explode(PHP_EOL, $contents);
     $result = "";
 
     $needle = $_POST['currentFirstName'] . ',' . $_POST['currentLastName'] . ',' . $_POST['currentRating'];
 
     foreach ($rows as $line) {
-
         if (!empty($line)) {
             if ($line != $needle) {
                 $result .= $line . PHP_EOL;
@@ -163,7 +165,7 @@ function editBook(): void
 
 function bookEntryToString(): string 
 {
-    return $_POST['title'] . ',' . $_POST['bookAuthor'] . ',' . $_POST['rating'] ?? 0;
+    return $_POST['title'] . ',' . $_POST['bookAuthor'] . ',' . $_POST['grade'] ?? 0;
 }
 
 function authorEntryToString(): string

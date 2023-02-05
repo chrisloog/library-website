@@ -35,16 +35,14 @@ $authors = getData('../authors.txt'); ?>
                     <div class="column right">Rating</div>
                 </div>
                 <hr>
-                <?php foreach ($authors as $author) :
-                    $authorLink = 'author-add.php?msg=edit&firstName=' . urlencode($author[0]) . '&lastName=' . urlencode($author[1]) . '&rating=' . urlencode($author[2]);
-                    <<<ITEM
-                            <div class="row">
-                                <div class="column left"><a href=$authorLink id="book-link">$author[0]</a></div>
-                                <div class="column middle">$author[1]</div>
-                                <div class="column right">$author[2]</div>
-                            </div>
-                        ITEM;
-                endforeach; ?>
+                <?php foreach ($authors as $author) : 
+                    $authorLink = 'author-add.php?msg=edit&firstName=' . urlencode($author[0]) . '&lastName=' . urlencode($author[1]) . '&rating=' . urlencode($author[2]); ?>
+                    <div class="row">
+                        <div class="column left"><a href=<?= $authorLink ?> id="book-link"><?= $author[0] ?></a></div>
+                        <div class="column middle"><?= $author[1] ?></div>
+                        <div class="column right"><?= $author[2] ?></div>
+                    </div>
+                <?php endforeach; ?>
             </section>
         </main>
         <footer>

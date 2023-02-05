@@ -50,11 +50,10 @@ $authors = getData('../authors.txt'); ?>
                                 <option></option>
                             <?php endif;
                             if (!empty($authors)) :
-                                foreach ($list as $item) : echo
-                                    <<<ITEM
-                                            <option>$item[0] $item[1]</option>
-                                        ITEM;
-                                endforeach;
+                                foreach ($authors as $item) : 
+                                    $name = $item[0] . ' ' . $item[1] ?>
+                                    <option><?= $name ?></option>
+                                <?php endforeach;
                             endif; ?>
                         </select>
                     </div>

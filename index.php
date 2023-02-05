@@ -36,17 +36,14 @@ $books = getData('books.txt'); ?>
                 </div>
                 <hr>
 
-                <?php foreach ($books as $book) :
-                    $bookLink = 'pages/book-add.php?msg=edit&title=' . urlencode($book[0]) . '&author=' . urlencode($book[1]) . '&rating=' . urlencode($book[2]);
-                    <<<ITEM
-                                <div class="row">
-                                    <div class="column left"><a href=$bookLink id="book-link">$book[0]</a></div>
-                                    <div class="column middle">$book[1]</div>
-                                    <div class="column right">$book[2] ?></div>
-                                </div>
-                            ITEM;
-                endforeach; ?>
-
+                <?php foreach ($books as $book) : 
+                    $bookLink = 'pages/book-add.php?msg=edit&title=' . urlencode($book[0]) . '&author=' . urlencode($book[1]) . '&rating=' . urlencode($book[2]); ?>
+                    <div class="row">
+                        <div class="column left"><a href=<?= $bookLink ?> id="book-link"><?= $book[0] ?></a></div>
+                        <div class="column middle"><?= $book[1] ?></div>
+                        <div class="column right"><?= $book[2] ?></div>
+                    </div>
+                <?php endforeach; ?>
             </section>
         </main>
         <footer>
