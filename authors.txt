@@ -1,0 +1,15 @@
+Tiit,Kääpa,2
+Teele,Tross,5
+Tiina,Aniit,5
+Priit,Tamm,1
+Nikolai,Seller,5
+Priidik,Metsa,5
+Silm,Käsi,1
+Pea,Pudel,5
+Nestea,Jook,1
+Red,Bull,0
+Battery,Mid,2
+Apple,Telefon,5
+Air,Pods,3
+Lae,Lamp,1
+Teki,Kott,5

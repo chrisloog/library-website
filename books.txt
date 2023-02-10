@@ -1,0 +1,3 @@
+Raamat,Teki Kott,5
+Troll,Priidik Metsa,1
+Bussi,Red Bull,1
